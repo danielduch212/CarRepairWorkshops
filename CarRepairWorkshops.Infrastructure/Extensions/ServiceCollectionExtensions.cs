@@ -1,0 +1,18 @@
+﻿using CarRepairWorkshops.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace CarRepairWorkshops.Infrastructure.ServiceCollectionExtensions;
+
+public static class ServiceCollectionExtensions
+{
+    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    {
+        var connectionString = configuration.GetConnectionString("CarRepairWorkshopsDb");
+        services.AddDbContext<CarRepairWorkshopsDbContext>(options =>
+            options.UseSqlServer(connectionString));
+            
+
+    }
+}
