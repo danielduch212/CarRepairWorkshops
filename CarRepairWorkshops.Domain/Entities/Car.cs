@@ -13,6 +13,5 @@ public class Car
 
 
     public int CarRepairWorkshopId { get; set; } = default!;
-    public string CarRepairWorkshopName { get; set; } = default!;
 
 }

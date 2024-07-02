@@ -13,7 +13,8 @@ public class CarRepairWorkshop
     public string Description { get; set; } = default!;
     public Address Address { get; set; } = default!;
 
-    public IEnumerable<Car>? RepairCars { get; set; }
-     
+    public IEnumerable<Car>? RepairCars { get; set; } = new List<Car>();
+
+
 
 }

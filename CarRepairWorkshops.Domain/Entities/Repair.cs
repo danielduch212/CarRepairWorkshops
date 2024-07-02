@@ -16,7 +16,6 @@ public class Repair
 
 
     public int CarId { get; set; }
-    public string CarRegistrationNumber { get; set; } = default!;
 
 
 }

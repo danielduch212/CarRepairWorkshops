@@ -1,15 +1,19 @@
 
 
+using CarRepairWorkshops.API.Middlewares;
+using CarRepairWorkshops.Application.Extensions;
+using CarRepairWorkshops.Infrastructure.Seeders;
 using CarRepairWorkshops.Infrastructure.ServiceCollectionExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
 
 builder.Services.AddEndpointsApiExplorer();
@@ -17,6 +21,17 @@ builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();
+
+
+
+//seeder
+var scope = app.Services.CreateScope();
+var seeder = scope.ServiceProvider.GetRequiredService<ICarRepairWorkshopsSeeder>();
+
+await seeder.Seed();
+
+app.UseMiddleware<ErrorHandlingMiddleware>();   
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
