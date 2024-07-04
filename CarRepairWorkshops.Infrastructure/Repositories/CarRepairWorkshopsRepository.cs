@@ -19,6 +19,27 @@ namespace CarRepairWorkshops.Infrastructure.Repositories
             return workshops;
         }
 
+        public async Task<CarRepairWorkshop> GetById(int id)
+        {
+            var workshop = await dbContext.CarRepairWorkshops
+                .Include(w => w.RepairCars)
+                .FirstOrDefaultAsync(workshop => workshop.Id == id);
+            return workshop;
+                                        
+        }
+
+        public async Task CreateWorkshop(CarRepairWorkshop entity)
+        {
+            dbContext.Add(entity);
+            await dbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteWorkshop(CarRepairWorkshop entity)
+        {
+            dbContext.Remove(entity);
+            await dbContext.SaveChangesAsync();
+        }
+
 
 
     }

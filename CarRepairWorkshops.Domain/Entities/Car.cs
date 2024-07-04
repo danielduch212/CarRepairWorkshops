@@ -9,7 +9,7 @@ public class Car
     public int ProductionYear { get; set; } = default!;
     public string Engine { get; set; } = default!;
     public string OwnerTelephoneNumber { get; set; } = default!;
-    public IEnumerable<Repair>? Repairs { get; set; }
+    public IEnumerable<Repair>? Repairs { get; set; } = new List<Repair>();
 
 
     public int CarRepairWorkshopId { get; set; } = default!;

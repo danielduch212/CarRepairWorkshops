@@ -1,4 +1,6 @@
 ﻿
+using CarRepairWorkshops.Domain.Exceptions;
+
 namespace CarRepairWorkshops.API.Middlewares
 {
     public class ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> logger) : IMiddleware
@@ -9,12 +11,19 @@ namespace CarRepairWorkshops.API.Middlewares
             {
                 await next.Invoke(context);
             }
-            catch(Exception ex)
+            catch (NotFoundException ex)
+            {
+                context.Response.StatusCode = 404;
+                logger.LogError(ex, ex.Message);
+                
+            }
+            catch (Exception ex)
             {
                 logger.LogError(ex, ex.Message);
                 context.Response.StatusCode = 500;
                 await context.Response.WriteAsync("Something went wrong");
             }
+            
 
 
         }

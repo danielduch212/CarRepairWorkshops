@@ -10,5 +10,8 @@ namespace CarRepairWorkshops.Domain.Repositories
     public interface ICarRepairWorkshopsRepository
     {
         Task<IEnumerable<CarRepairWorkshop>> GetAllWorkshopsAsync();
+        Task<CarRepairWorkshop> GetById(int id);
+        Task CreateWorkshop(CarRepairWorkshop entity);
+        Task DeleteWorkshop(CarRepairWorkshop entity);
     }
 }

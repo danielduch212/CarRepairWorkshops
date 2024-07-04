@@ -25,6 +25,18 @@ internal class CarRepairWorkshopsDbContext(DbContextOptions<CarRepairWorkshopsDb
             .HasMany(c => c.Repairs)
             .WithOne()
             .HasForeignKey(r => r.CarId);
-            
+
+        modelBuilder.Entity<Repair>()
+            .HasMany(r => r.MechanicalServices)
+            .WithOne()
+            .HasForeignKey(s => s.RepairId);
+
+        modelBuilder.Entity<Repair>()
+            .HasMany(r => r.ReplacedCarParts)
+            .WithOne()
+            .HasForeignKey(c=>c.RepairId);  
+
+
+
     }
 }

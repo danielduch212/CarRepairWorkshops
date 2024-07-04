@@ -1,6 +1,19 @@
-﻿@CarRepairWorkshops_HostAddress = http://localhost:5028
+﻿@CarRepairWorkshops.API_HostAddress = https://localhost:7166
+@CarRepairWorkshops_HostAddress = http://localhost:5028
+
+###
 
 
 GET {{CarRepairWorkshops_HostAddress}}/carRepairWorkshops
+
+###
+
+POST {{CarRepairWorkshops_HostAddress}}/api/carRepairWorkshops/{workshopId}/cars/{carId}/repairs
+Content-Type: application/json
+
+{
+  "DateOfFinalization": "2023-08-15",
+  "CarId": 7
+}
 
 ###
