@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MediatR;
-using CarRepairWorkshops.Domain.Entities;
-using CarRepairWorkshops.Application.CarRepairWorkshops;
-using CarRepairWorkshops.Application.CarRepairWorkshops.Queries.GetAll;
-using CarRepairWorkshops.Application.CarRepairWorkshops.Commands.CreateWorkshop;
+﻿using CarRepairWorkshops.Application.CarRepairWorkshops.Commands.CreateWorkshop;
 using CarRepairWorkshops.Application.CarRepairWorkshops.Commands.DeleteWorkshop;
+using CarRepairWorkshops.Application.CarRepairWorkshops.Queries.GetAll;
+using CarRepairWorkshops.Domain.Constants;
+using CarRepairWorkshops.Domain.Entities;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CarRepairWorkshops.API.Controllers
 {
 
     [ApiController]
     [Route("api/carRepairWorkshops")]
+    [Authorize(Roles = UserRoles.Admin)]
+
     public class CarRepairWorkshopsController(IMediator mediator ) : ControllerBase
     {
         [HttpGet]

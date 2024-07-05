@@ -3,15 +3,20 @@ using CarRepairWorkshops.Application.Repairs.Commands.AddService;
 using CarRepairWorkshops.Application.Repairs.Commands.CreateRepair;
 using CarRepairWorkshops.Application.Repairs.Commands.DeleteRepair;
 using CarRepairWorkshops.Application.Repairs.Queries.GetAllForCar;
+using CarRepairWorkshops.Domain.Constants;
 using CarRepairWorkshops.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace CarRepairWorkshops.API.Controllers
 {
     [ApiController]
+    [Authorize(Roles = UserRoles.WorkshopOwner)]
+    [Authorize(Roles = UserRoles.Mechanic)]
     [Route("api/carRepairWorkshops/{workshopId}/cars/{carId}/repairs")]
+    
     public class RepairsController(IMediator mediator) : ControllerBase
     {
         [HttpGet]
@@ -46,9 +51,11 @@ namespace CarRepairWorkshops.API.Controllers
         [HttpDelete]
         public async Task<ActionResult> DeleteRepair(DeleteRepairCommand command)
         {
+            
             await mediator.Send(command);
             return NoContent();
         }
+
 
     }
 }

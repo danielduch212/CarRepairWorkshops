@@ -4,10 +4,6 @@
 ###
 
 
-GET {{CarRepairWorkshops_HostAddress}}/carRepairWorkshops
-
-###
-
 POST {{CarRepairWorkshops_HostAddress}}/api/carRepairWorkshops/{workshopId}/cars/{carId}/repairs
 Content-Type: application/json
 

@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRepairWorkshops.API", "CarRepairWorkshops\CarRepairWorkshops.API.csproj", "{723D11FC-C54C-4BFF-9C2A-FCDFB28AE9EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRepairWorkshops.API", "CarRepairWorkshops\CarRepairWorkshops.API.csproj", "{723D11FC-C54C-4BFF-9C2A-FCDFB28AE9EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRepairWorkshops.Infrastructure", "CarRepairWorkshops.Infrastructure\CarRepairWorkshops.Infrastructure.csproj", "{6DE8F705-7602-456C-BDCA-92966C628D17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRepairWorkshops.Infrastructure", "CarRepairWorkshops.Infrastructure\CarRepairWorkshops.Infrastructure.csproj", "{6DE8F705-7602-456C-BDCA-92966C628D17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRepairWorkshops.Domain", "CarRepairWorkshops.Domain\CarRepairWorkshops.Domain.csproj", "{BD244E28-4A3A-4349-9FDC-67508CD31D03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRepairWorkshops.Domain", "CarRepairWorkshops.Domain\CarRepairWorkshops.Domain.csproj", "{BD244E28-4A3A-4349-9FDC-67508CD31D03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRepairWorkshops.Application", "CarRepairWorkshops.Application\CarRepairWorkshops.Application.csproj", "{E7B22EB3-6161-4E16-A2C7-23C1C62FB28D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRepairWorkshops.Application", "CarRepairWorkshops.Application\CarRepairWorkshops.Application.csproj", "{E7B22EB3-6161-4E16-A2C7-23C1C62FB28D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

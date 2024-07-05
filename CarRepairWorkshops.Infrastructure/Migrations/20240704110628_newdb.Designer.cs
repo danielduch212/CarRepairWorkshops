@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRepairWorkshops.Infrastructure.Migrations
 {
     [DbContext(typeof(CarRepairWorkshopsDbContext))]
-    [Migration("20240628122449_newDB")]
-    partial class newDB
+    [Migration("20240704110628_newdb")]
+    partial class newdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,10 +48,6 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                     b.Property<int>("CarRepairWorkshopId")
                         .HasColumnType("int");
 
-                    b.Property<string>("CarRepairWorkshopName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Engine")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -85,7 +81,7 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("RepairId")
+                    b.Property<int>("RepairId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -111,7 +107,13 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OwnerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("CarRepairWorkshops");
                 });
@@ -131,7 +133,7 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("RepairId")
+                    b.Property<int>("RepairId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -152,14 +154,10 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                     b.Property<int>("CarId")
                         .HasColumnType("int");
 
-                    b.Property<string>("CarRegistrationNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateOnly>("DateOfFinalization")
                         .HasColumnType("date");
 
-                    b.Property<decimal>("TotalPrice")
+                    b.Property<decimal?>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -167,6 +165,64 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                     b.HasIndex("CarId");
 
                     b.ToTable("Repairs");
+                });
+
+            modelBuilder.Entity("CarRepairWorkshops.Domain.Entities.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateOnly?>("DateOfBirth")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Nationality")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("CarRepairWorkshops.Domain.Entities.Car", b =>
@@ -182,11 +238,19 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                 {
                     b.HasOne("CarRepairWorkshops.Domain.Entities.Repair", null)
                         .WithMany("ReplacedCarParts")
-                        .HasForeignKey("RepairId");
+                        .HasForeignKey("RepairId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CarRepairWorkshops.Domain.Entities.CarRepairWorkshop", b =>
                 {
+                    b.HasOne("CarRepairWorkshops.Domain.Entities.User", "Owner")
+                        .WithMany("OwnedWorkshops")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.OwnsOne("CarRepairWorkshops.Domain.Entities.Address", "Address", b1 =>
                         {
                             b1.Property<int>("CarRepairWorkshopId")
@@ -211,13 +275,17 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
 
                     b.Navigation("Address")
                         .IsRequired();
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("CarRepairWorkshops.Domain.Entities.MechanicalService", b =>
                 {
                     b.HasOne("CarRepairWorkshops.Domain.Entities.Repair", null)
                         .WithMany("MechanicalServices")
-                        .HasForeignKey("RepairId");
+                        .HasForeignKey("RepairId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CarRepairWorkshops.Domain.Entities.Repair", b =>
@@ -244,6 +312,11 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                     b.Navigation("MechanicalServices");
 
                     b.Navigation("ReplacedCarParts");
+                });
+
+            modelBuilder.Entity("CarRepairWorkshops.Domain.Entities.User", b =>
+                {
+                    b.Navigation("OwnedWorkshops");
                 });
 #pragma warning restore 612, 618
         }

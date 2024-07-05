@@ -6,11 +6,38 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CarRepairWorkshops.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class newDB : Migration
+    public partial class newdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    DateOfBirth = table.Column<DateOnly>(type: "date", nullable: true),
+                    Nationality = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "CarRepairWorkshops",
                 columns: table => new
@@ -21,11 +48,18 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address_City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address_Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address_PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Address_PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CarRepairWorkshops", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CarRepairWorkshops_User_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,8 +74,7 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                     ProductionYear = table.Column<int>(type: "int", nullable: false),
                     Engine = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OwnerTelephoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CarRepairWorkshopId = table.Column<int>(type: "int", nullable: false),
-                    CarRepairWorkshopName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CarRepairWorkshopId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,9 +94,8 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DateOfFinalization = table.Column<DateOnly>(type: "date", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CarId = table.Column<int>(type: "int", nullable: false),
-                    CarRegistrationNumber = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    CarId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -84,7 +116,7 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    RepairId = table.Column<int>(type: "int", nullable: true)
+                    RepairId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,7 +125,8 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                         name: "FK_CarPart_Repairs_RepairId",
                         column: x => x.RepairId,
                         principalTable: "Repairs",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,7 +137,7 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    RepairId = table.Column<int>(type: "int", nullable: true)
+                    RepairId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -113,13 +146,19 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                         name: "FK_MechanicalService_Repairs_RepairId",
                         column: x => x.RepairId,
                         principalTable: "Repairs",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CarPart_RepairId",
                 table: "CarPart",
                 column: "RepairId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CarRepairWorkshops_OwnerId",
+                table: "CarRepairWorkshops",
+                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_CarRepairWorkshopId",
@@ -154,6 +193,9 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "CarRepairWorkshops");
+
+            migrationBuilder.DropTable(
+                name: "User");
         }
     }
 }

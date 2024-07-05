@@ -1,23 +1,21 @@
-
-
 using CarRepairWorkshops.API.Middlewares;
 using CarRepairWorkshops.Application.Extensions;
 using CarRepairWorkshops.Infrastructure.Seeders;
 using CarRepairWorkshops.Infrastructure.ServiceCollectionExtensions;
+using CarRepairWorkshops.API.Extensions;
+using Serilog;
+using CarRepairWorkshops.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 
-builder.Services.AddControllers();
-builder.Services.AddScoped<ErrorHandlingMiddleware>();
-
+builder.AddPresentation();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
 
 
 var app = builder.Build();
@@ -30,8 +28,10 @@ var seeder = scope.ServiceProvider.GetRequiredService<ICarRepairWorkshopsSeeder>
 
 await seeder.Seed();
 
-app.UseMiddleware<ErrorHandlingMiddleware>();   
+app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseMiddleware<RequestTimeLogginMiddleware>();
 
+app.UseSerilogRequestLogging();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -41,6 +41,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapIdentityApi<User>();
 
 app.UseAuthorization();
 

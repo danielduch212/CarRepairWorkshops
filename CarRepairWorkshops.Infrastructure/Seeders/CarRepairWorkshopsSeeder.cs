@@ -1,5 +1,7 @@
 ﻿using CarRepairWorkshops.Infrastructure.Persistence;
 using CarRepairWorkshops.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using CarRepairWorkshops.Domain.Constants;
 
 namespace CarRepairWorkshops.Infrastructure.Seeders;
 
@@ -17,6 +19,18 @@ internal class CarRepairWorkshopsSeeder(CarRepairWorkshopsDbContext dbContext) :
                 dbContext.CarRepairWorkshops.AddRange(workshops);
                 await dbContext.SaveChangesAsync();
             }
+            if (!dbContext.Roles.Any()) 
+            {
+                var roles = GetRoles();
+                dbContext.Roles.AddRange(roles);
+                await dbContext.SaveChangesAsync();
+            
+            
+            }
+
+
+            
+            
         }
     }
 
@@ -312,6 +326,25 @@ internal class CarRepairWorkshopsSeeder(CarRepairWorkshopsDbContext dbContext) :
             ];
         return workshops;
 
+    }
+    private IEnumerable<IdentityRole> GetRoles()
+    {
+        List<IdentityRole> roles =
+            [
+                new (UserRoles.Mechanic)
+                {
+                    NormalizedName = UserRoles.Mechanic.ToUpper(),
+                },
+                new (UserRoles.Admin)
+                {
+                    NormalizedName = UserRoles.WorkshopOwner.ToUpper(),
+                },
+                new (UserRoles.WorkshopOwner)
+                {
+                    NormalizedName = UserRoles.Admin.ToUpper(),
+                },
+            ];
+        return roles;
     }
 
 

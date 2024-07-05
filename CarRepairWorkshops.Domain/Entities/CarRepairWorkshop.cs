@@ -15,6 +15,9 @@ public class CarRepairWorkshop
 
     public IEnumerable<Car>? RepairCars { get; set; } = new List<Car>();
 
+    public User Owner { get; set; } = default!;
+    public string OwnerId { get; set; } = default!;
+    
 
 
 }

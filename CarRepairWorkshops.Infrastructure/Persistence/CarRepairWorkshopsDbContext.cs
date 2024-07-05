@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using CarRepairWorkshops.Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace CarRepairWorkshops.Infrastructure.Persistence;
 
-internal class CarRepairWorkshopsDbContext(DbContextOptions<CarRepairWorkshopsDbContext> options) : DbContext(options)
+internal class CarRepairWorkshopsDbContext(DbContextOptions<CarRepairWorkshopsDbContext> options) : IdentityDbContext<User>(options)
 {
     internal DbSet<CarRepairWorkshop> CarRepairWorkshops { get; set; }
     internal DbSet<Car> Cars { get; set; }
@@ -34,7 +35,12 @@ internal class CarRepairWorkshopsDbContext(DbContextOptions<CarRepairWorkshopsDb
         modelBuilder.Entity<Repair>()
             .HasMany(r => r.ReplacedCarParts)
             .WithOne()
-            .HasForeignKey(c=>c.RepairId);  
+            .HasForeignKey(c=>c.RepairId);
+
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.OwnedWorkshops)
+            .WithOne(w => w.Owner)
+            .HasForeignKey(w => w.OwnerId);
 
 
 

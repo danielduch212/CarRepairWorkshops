@@ -1,17 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using CarRepairWorkshops.Domain.Entities;
-using MediatR;
-using CarRepairWorkshops.Application.Cars.Queries;
-using CarRepairWorkshops.Application.Cars.Queries.GetAllForWorkshop;
-using CarRepairWorkshops.Application.Cars.Queries.GetCarById;
+﻿using CarRepairWorkshops.Application.Cars.Commands.ChangeOwnerTelephone;
 using CarRepairWorkshops.Application.Cars.Commands.CreateCar;
 using CarRepairWorkshops.Application.Cars.Commands.DeleteCar;
-using CarRepairWorkshops.Application.Cars.Commands.ChangeOwnerTelephone;
+using CarRepairWorkshops.Application.Cars.Queries.GetAllForWorkshop;
+using CarRepairWorkshops.Application.Cars.Queries.GetCarById;
+using CarRepairWorkshops.Domain.Constants;
+using CarRepairWorkshops.Domain.Entities;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CarRepairWorkshops.API.Controllers
 {
     [ApiController]
     [Route("api/carRepairWorkshops/{WorkshopId}/cars")]
+    [Authorize(Roles = UserRoles.WorkshopOwner)]
     public class CarsController(IMediator mediator) : ControllerBase
     {
         [HttpGet]
