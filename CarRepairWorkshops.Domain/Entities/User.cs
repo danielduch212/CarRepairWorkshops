@@ -9,4 +9,5 @@ public class User : IdentityUser
     public string? Nationality { get; set; }
 
     public IEnumerable<CarRepairWorkshop> OwnedWorkshops { get; set; } = [];
+
 }

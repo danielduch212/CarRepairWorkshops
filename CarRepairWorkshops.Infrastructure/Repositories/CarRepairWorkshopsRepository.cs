@@ -2,11 +2,7 @@
 using CarRepairWorkshops.Domain.Repositories;
 using CarRepairWorkshops.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CarRepairWorkshops.Application.Common;
 
 namespace CarRepairWorkshops.Infrastructure.Repositories
 {
@@ -17,6 +13,26 @@ namespace CarRepairWorkshops.Infrastructure.Repositories
         {
             var workshops = await dbContext.CarRepairWorkshops.ToListAsync();
             return workshops;
+        }
+
+        public async Task<(IEnumerable<CarRepairWorkshop>, int)> GetAllMatchingAsync(string? searchPhrase, int pageNumber,
+            int pageSize)
+        {
+            var searchPhraseToLower = searchPhrase?.ToLower();
+
+            var baseQuery = dbContext.CarRepairWorkshops
+                .Where(w => searchPhraseToLower == null || (w.Name.ToLower().Contains(searchPhraseToLower)
+                        || w.Description.ToLower().Contains(searchPhraseToLower)));
+
+            var totalCounts = await baseQuery.CountAsync();
+
+
+            var workshops = await baseQuery
+                .Skip(pageSize *(pageNumber - 1))
+                .Take(pageSize)
+                .ToListAsync();
+                
+            return (workshops, totalCounts);
         }
 
         public async Task<CarRepairWorkshop> GetById(int id)

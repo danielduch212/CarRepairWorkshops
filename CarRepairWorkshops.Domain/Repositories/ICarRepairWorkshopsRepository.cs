@@ -13,5 +13,8 @@ namespace CarRepairWorkshops.Domain.Repositories
         Task<CarRepairWorkshop> GetById(int id);
         Task CreateWorkshop(CarRepairWorkshop entity);
         Task DeleteWorkshop(CarRepairWorkshop entity);
+        Task<(IEnumerable<CarRepairWorkshop>, int)> GetAllMatchingAsync(string? searchPhrase, int pageNumber, int pageSize);
+
+
     }
 }

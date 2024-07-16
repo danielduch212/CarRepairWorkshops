@@ -17,9 +17,10 @@ namespace CarRepairWorkshops.API.Controllers
     public class CarRepairWorkshopsController(IMediator mediator ) : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CarRepairWorkshop>>> GetAllWorkshopsAsync()
+        public async Task<ActionResult<IEnumerable<CarRepairWorkshop>>> GetAllWorkshopsAsync
+            ([FromQuery] GetAllWorkshopsQuery query)
         {
-            var workshops = await mediator.Send(new GetAllWorkshopsQuery());
+            var workshops = await mediator.Send(query);
             return Ok(workshops);
         }
 
