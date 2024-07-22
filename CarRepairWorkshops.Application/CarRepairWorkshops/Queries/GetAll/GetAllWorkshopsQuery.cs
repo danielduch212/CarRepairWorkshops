@@ -10,4 +10,5 @@ public class GetAllWorkshopsQuery : IRequest<PagedResult<CarRepairWorkshop>>
     public int PageNumber { get; set; }
     public int PageSize { get; set; }
 
+
 }

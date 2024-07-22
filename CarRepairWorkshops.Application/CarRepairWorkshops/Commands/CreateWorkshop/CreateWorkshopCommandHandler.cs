@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CarRepairWorkshops.Application.CarRepairWorkshops.Commands.CreateWorkshop;
 
-internal class CreateWorkshopCommandHandler(ILogger<CreateWorkshopCommandHandler> logger,
+public class CreateWorkshopCommandHandler(ILogger<CreateWorkshopCommandHandler> logger,
 ICarRepairWorkshopsRepository workshopsRepository, IMapper mapper,
 IUserContext userContext) : IRequestHandler<CreateWorkshopCommand>
 {
