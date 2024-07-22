@@ -13,3 +13,11 @@ Content-Type: application/json
 }
 
 ###
+
+GET {{CarRepairWorkshops.API_HostAddress}}/api/carRepairWorkshops/{WorkshopId}/cars
+
+###
+
+GET {{CarRepairWorkshops.API_HostAddress}}/api/carRepairWorkshops
+
+###

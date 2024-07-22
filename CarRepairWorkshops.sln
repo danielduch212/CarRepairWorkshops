@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRepairWorkshops.Domain",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRepairWorkshops.Application", "CarRepairWorkshops.Application\CarRepairWorkshops.Application.csproj", "{E7B22EB3-6161-4E16-A2C7-23C1C62FB28D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRepairWorkshops.ApplicationTests", "CarRepairWorkshops.ApplicationTests\CarRepairWorkshops.ApplicationTests.csproj", "{3A1CC359-27F8-40C5-B9E7-95DE292FD504}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRepairWorkshops.ApplicationTests", "CarRepairWorkshops.ApplicationTests\CarRepairWorkshops.ApplicationTests.csproj", "{3A1CC359-27F8-40C5-B9E7-95DE292FD504}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRepairWorkshops.APITests", "CarRepairWorkshops.APITests\CarRepairWorkshops.APITests.csproj", "{C06B42DB-3282-4688-99BD-AC8D22E44B14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{3A1CC359-27F8-40C5-B9E7-95DE292FD504}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A1CC359-27F8-40C5-B9E7-95DE292FD504}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A1CC359-27F8-40C5-B9E7-95DE292FD504}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C06B42DB-3282-4688-99BD-AC8D22E44B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C06B42DB-3282-4688-99BD-AC8D22E44B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C06B42DB-3282-4688-99BD-AC8D22E44B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C06B42DB-3282-4688-99BD-AC8D22E44B14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
