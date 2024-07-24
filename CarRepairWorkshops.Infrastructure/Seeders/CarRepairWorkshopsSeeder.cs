@@ -2,6 +2,7 @@
 using CarRepairWorkshops.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using CarRepairWorkshops.Domain.Constants;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarRepairWorkshops.Infrastructure.Seeders;
 
@@ -11,6 +12,12 @@ internal class CarRepairWorkshopsSeeder(CarRepairWorkshopsDbContext dbContext) :
 
     public async Task Seed()
     {
+
+        if (dbContext.Database.GetPendingMigrations().Any())
+        {
+            await dbContext.Database.MigrateAsync();
+        }
+
         if(await dbContext.Database.CanConnectAsync())
         {
             if (!dbContext.CarRepairWorkshops.Any())
@@ -37,11 +44,16 @@ internal class CarRepairWorkshopsSeeder(CarRepairWorkshopsDbContext dbContext) :
 
     private IEnumerable<CarRepairWorkshop> GetWorkshops()
     {
+        User owner = new User()
+        {
+            Email = "seed-user@test.com"
 
+        };
         List<CarRepairWorkshop> workshops = [
 
             new()
             {
+                Owner = owner,
                 Name = "Golden wheel",
                 Description = "We specialize in everything that car need",
                 Address = new Address{
@@ -49,7 +61,7 @@ internal class CarRepairWorkshopsSeeder(CarRepairWorkshopsDbContext dbContext) :
                     Street = "Main Street 1",
                     PostalCode = "00-001"
                 },
-                RepairCars = [
+                RepairCars = new List<Car>{
                     new(){
                         CarRegistrationNumber = "SB5372H",
                         CarBrand = "FORD",
@@ -57,7 +69,7 @@ internal class CarRepairWorkshopsSeeder(CarRepairWorkshopsDbContext dbContext) :
                         ProductionYear = 2018,
                         Engine = "1.4 Diesel",
                         OwnerTelephoneNumber = "577239145",
-                        Repairs = [
+                        Repairs = new List<Repair>{
                             new()
                             {
                                 DateOfFinalization = new DateOnly(2020, 5, 24),
@@ -117,7 +129,7 @@ internal class CarRepairWorkshopsSeeder(CarRepairWorkshopsDbContext dbContext) :
                                 }
 
                             }
-                            ]
+                        }
                     },
                     new(){
                         CarRegistrationNumber = "GB5324H",
@@ -126,7 +138,7 @@ internal class CarRepairWorkshopsSeeder(CarRepairWorkshopsDbContext dbContext) :
                         ProductionYear = 2005,
                         Engine = "2.0 TDI Diesel",
                         OwnerTelephoneNumber = "984726435",
-                        Repairs = [
+                        Repairs =new List<Repair>{
                             new()
                             {
                                 DateOfFinalization = new DateOnly(2020, 7, 16),
@@ -177,12 +189,13 @@ internal class CarRepairWorkshopsSeeder(CarRepairWorkshopsDbContext dbContext) :
                                 }
 
                             }
-                            ]
+                        }
                     }
-                    ]
+                }
             },
             new()
             {
+                Owner = owner,
                 Name = "Silver Wheel",
                 Description = "We provide comprehensive car repair services",
                 Address = new Address{
@@ -190,7 +203,7 @@ internal class CarRepairWorkshopsSeeder(CarRepairWorkshopsDbContext dbContext) :
                     Street = "Liberty Avenue 45",
                     PostalCode = "61-707"
                 },
-                RepairCars = [
+                RepairCars = new List<Car>{
                     new(){
                         CarRegistrationNumber = "PO1234B",
                         CarBrand = "TOYOTA",
@@ -198,7 +211,7 @@ internal class CarRepairWorkshopsSeeder(CarRepairWorkshopsDbContext dbContext) :
                         ProductionYear = 2017,
                         Engine = "1.8 Hybrid",
                         OwnerTelephoneNumber = "600123456",
-                        Repairs = [
+                        Repairs = new List<Repair>{
                             new()
                             {
                                 DateOfFinalization = new DateOnly(2021, 8, 10),
@@ -258,7 +271,7 @@ internal class CarRepairWorkshopsSeeder(CarRepairWorkshopsDbContext dbContext) :
                                 }
 
                             }
-                            ]
+                        }
                     },
                     new(){
                         CarRegistrationNumber = "GD5678C",
@@ -267,7 +280,7 @@ internal class CarRepairWorkshopsSeeder(CarRepairWorkshopsDbContext dbContext) :
                         ProductionYear = 2016,
                         Engine = "2.0 Diesel",
                         OwnerTelephoneNumber = "601234567",
-                        Repairs = [
+                        Repairs = new List<Repair>{
                             new()
                             {
                                 DateOfFinalization = new DateOnly(2021, 12, 5),
@@ -318,9 +331,9 @@ internal class CarRepairWorkshopsSeeder(CarRepairWorkshopsDbContext dbContext) :
                                 }
 
                             }
-                            ]
+                        }
                     }
-                    ]
+                }
                     }
 
             ];

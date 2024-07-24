@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRepairWorkshops.Applicat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRepairWorkshops.ApplicationTests", "CarRepairWorkshops.ApplicationTests\CarRepairWorkshops.ApplicationTests.csproj", "{3A1CC359-27F8-40C5-B9E7-95DE292FD504}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRepairWorkshops.APITests", "CarRepairWorkshops.APITests\CarRepairWorkshops.APITests.csproj", "{C06B42DB-3282-4688-99BD-AC8D22E44B14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRepairWorkshops.APITests", "CarRepairWorkshops.APITests\CarRepairWorkshops.APITests.csproj", "{C06B42DB-3282-4688-99BD-AC8D22E44B14}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4311708E-F657-44E7-B791-A2B0024D7A11}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E1B272C6-7BB6-431C-8005-69D3C1C28123}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +52,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{723D11FC-C54C-4BFF-9C2A-FCDFB28AE9EB} = {4311708E-F657-44E7-B791-A2B0024D7A11}
+		{6DE8F705-7602-456C-BDCA-92966C628D17} = {4311708E-F657-44E7-B791-A2B0024D7A11}
+		{BD244E28-4A3A-4349-9FDC-67508CD31D03} = {4311708E-F657-44E7-B791-A2B0024D7A11}
+		{E7B22EB3-6161-4E16-A2C7-23C1C62FB28D} = {4311708E-F657-44E7-B791-A2B0024D7A11}
+		{3A1CC359-27F8-40C5-B9E7-95DE292FD504} = {E1B272C6-7BB6-431C-8005-69D3C1C28123}
+		{C06B42DB-3282-4688-99BD-AC8D22E44B14} = {E1B272C6-7BB6-431C-8005-69D3C1C28123}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A0916FEF-3C54-481C-8532-BA095EA65FC1}

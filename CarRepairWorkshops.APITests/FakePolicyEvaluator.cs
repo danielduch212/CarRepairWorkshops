@@ -32,4 +32,6 @@ internal class FakePolicyEvaluator : IPolicyEvaluator
         var result = PolicyAuthorizationResult.Success();
         return Task.FromResult(result);
     }
+
+    
 }
