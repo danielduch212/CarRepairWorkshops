@@ -17,6 +17,11 @@ namespace CarRepairWorkshops.API.Middlewares
                 logger.LogError(ex, ex.Message);
                 
             }
+            catch (ForbidException ex)
+            {
+                context.Response.StatusCode = 403;
+                await context.Response.WriteAsync("Acess forbidden");
+            }
             catch (Exception ex)
             {
                 logger.LogError(ex, ex.Message);

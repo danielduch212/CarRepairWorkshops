@@ -1,5 +1,6 @@
 ﻿using CarRepairWorkshops.Application.CarRepairWorkshops.Commands.CreateWorkshop;
 using CarRepairWorkshops.Application.CarRepairWorkshops.Commands.DeleteWorkshop;
+using CarRepairWorkshops.Application.CarRepairWorkshops.Commands.UploadWorkshopLogo;
 using CarRepairWorkshops.Application.CarRepairWorkshops.Queries.GetAll;
 using CarRepairWorkshops.Domain.Constants;
 using CarRepairWorkshops.Domain.Entities;
@@ -35,6 +36,22 @@ namespace CarRepairWorkshops.API.Controllers
         [HttpDelete]
         public async Task<ActionResult> DeleteWorkshop(DeleteWorkshopCommand command)
         {
+            await mediator.Send(command);
+            return NoContent();
+        }
+
+        [HttpPost("{id}/logo")]
+        public async Task<ActionResult> UploadLogo([FromRoute] int id, IFormFile file)
+        {
+            using var stream = file.OpenReadStream();
+
+            var command = new UploadWorkshopLogoCommand()
+            {
+                WorkshopId = id,
+                Filename = file.FileName,
+                File = stream,
+            };
+
             await mediator.Send(command);
             return NoContent();
         }

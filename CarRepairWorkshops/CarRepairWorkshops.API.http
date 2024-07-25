@@ -1,7 +1,5 @@
-﻿@CarRepairWorkshops.API_HostAddress = https://localhost:7166
-@CarRepairWorkshops_HostAddress = http://localhost:5028
+﻿@CarRepairWorkshops_HostAddress = http://localhost:5028
 
-###
 
 
 POST {{CarRepairWorkshops_HostAddress}}/api/carRepairWorkshops/{workshopId}/cars/{carId}/repairs

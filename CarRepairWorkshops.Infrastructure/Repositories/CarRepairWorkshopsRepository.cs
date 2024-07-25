@@ -56,6 +56,10 @@ namespace CarRepairWorkshops.Infrastructure.Repositories
             await dbContext.SaveChangesAsync();
         }
 
+        public async Task SaveChangesAsync()
+        {
+            await dbContext.SaveChangesAsync();
+        }
 
 
     }
