@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Sas;
 using CarRepairWorkshops.Domain.Interfaces;
 using CarRepairWorkshops.Infrastructure.Configuration;
 using Microsoft.Extensions.Options;
@@ -19,6 +20,38 @@ public class BlobStorageService(IOptions<BlobStorageSettings> blobStorageSetting
 
         var blobUrl = blobClient.Uri.ToString();
         return blobUrl;
+    }
+
+    public string? GetBlobSasUrl(string? blobUrl)
+    {
+        if (blobUrl == null) return null;
+
+        var sasBuilder = new BlobSasBuilder()
+        {
+            BlobContainerName = _blobStorageSettings.LogosContainerName,
+            Resource = "b",
+            StartsOn = DateTime.UtcNow,
+            ExpiresOn = DateTime.UtcNow.AddMinutes(30),
+            BlobName = GetBlobNameFromUrl(blobUrl),
+
+        };
+        sasBuilder.SetPermissions(BlobSasPermissions.Read);
+
+        var blobServiceClient = new BlobServiceClient(_blobStorageSettings.ConnectionString);
+
+
+        var sasToken = sasBuilder
+            .ToSasQueryParameters(new Azure.Storage.StorageSharedKeyCredential(blobServiceClient.AccountName, _blobStorageSettings.AccountKey))
+            .ToString();
+
+        return $"{blobUrl}?{sasToken}";
+
+    }
+
+    private string GetBlobNameFromUrl(string blobUrl)
+    {
+        var uri = new Uri(blobUrl);
+        return uri.Segments.Last();
     }
 
 }
