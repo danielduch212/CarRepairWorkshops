@@ -13,7 +13,7 @@ namespace CarRepairWorkshops.API.Controllers
 
     [ApiController]
     [Route("api/carRepairWorkshops")]
-    [Authorize(Roles = UserRoles.Admin)]
+    //[Authorize(Roles = UserRoles.Admin)]
 
     public class CarRepairWorkshopsController(IMediator mediator ) : ControllerBase
     {
@@ -48,7 +48,7 @@ namespace CarRepairWorkshops.API.Controllers
             var command = new UploadWorkshopLogoCommand()
             {
                 WorkshopId = id,
-                Filename = file.FileName,
+                Filename = $"{id}-{file.FileName}",
                 File = stream,
             };
 
