@@ -1,4 +1,5 @@
-﻿@CarRepairWorkshops_HostAddress = http://localhost:5028
+﻿@CarRepairWorkshops.API_HostAddress = https://localhost:7153
+@CarRepairWorkshops_HostAddress = http://localhost:5163
 
 
 
@@ -17,5 +18,9 @@ GET {{CarRepairWorkshops.API_HostAddress}}/api/carRepairWorkshops/{WorkshopId}/c
 ###
 
 GET {{CarRepairWorkshops.API_HostAddress}}/api/carRepairWorkshops
+
+###
+
+GET {{CarRepairWorkshops.API_HostAddress}}/api/carRepairWorkshops/{WorkshopId}/cars
 
 ###
