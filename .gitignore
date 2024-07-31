@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /CarRepairWorkshops/appsettings.Development.json
+/CarRepairWorkshops.Infrastructure/Migrations/20240729182609_initialnew.cs

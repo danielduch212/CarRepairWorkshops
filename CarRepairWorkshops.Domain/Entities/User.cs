@@ -9,5 +9,6 @@ public class User : IdentityUser
     public string? Nationality { get; set; }
 
     public IEnumerable<CarRepairWorkshop> OwnedWorkshops { get; set; } = new List<CarRepairWorkshop>();
+    public int? CurrentWorkshopId { get; set; } //for mechanics
 
 }

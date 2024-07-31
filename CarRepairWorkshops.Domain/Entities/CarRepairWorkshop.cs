@@ -14,6 +14,8 @@ public class CarRepairWorkshop
     public Address Address { get; set; } = default!;
 
     public IEnumerable<Car>? RepairCars { get; set; } = new List<Car>();
+    public IEnumerable<User>? Mechanics { get; set; } = new List<User>();
+
 
     public User Owner { get; set; } = default!;
     public string OwnerId { get; set; } = default!;

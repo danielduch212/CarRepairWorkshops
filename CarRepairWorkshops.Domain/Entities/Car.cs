@@ -13,5 +13,6 @@ public class Car
 
 
     public int CarRepairWorkshopId { get; set; } = default!;
+    public int? CarOwnerId { get; set; } = default!;
 
 }

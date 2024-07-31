@@ -13,8 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CarRepairWorkshops.API.Controllers
 {
     [ApiController]
-    [Authorize(Roles = UserRoles.WorkshopOwner)]
-    [Authorize(Roles = UserRoles.Mechanic)]
+    [Authorize]
     [Route("api/carRepairWorkshops/{workshopId}/cars/{carId}/repairs")]
     
     public class RepairsController(IMediator mediator) : ControllerBase

@@ -1,7 +1,11 @@
-﻿using CarRepairWorkshops.Application.CarRepairWorkshops.Commands.CreateWorkshop;
+﻿using CarRepairWorkshops.Application.CarRepairWorkshops.Commands.AssignMechanic;
+using CarRepairWorkshops.Application.CarRepairWorkshops.Commands.CreateWorkshop;
 using CarRepairWorkshops.Application.CarRepairWorkshops.Commands.DeleteWorkshop;
+using CarRepairWorkshops.Application.CarRepairWorkshops.Commands.UnassignMechanic;
 using CarRepairWorkshops.Application.CarRepairWorkshops.Commands.UploadWorkshopLogo;
 using CarRepairWorkshops.Application.CarRepairWorkshops.Queries.GetAll;
+using CarRepairWorkshops.Application.Users.Commands.AssignUserRole;
+using CarRepairWorkshops.Application.Users.Commands.UnassignUserRole;
 using CarRepairWorkshops.Domain.Constants;
 using CarRepairWorkshops.Domain.Entities;
 using MediatR;
@@ -13,11 +17,12 @@ namespace CarRepairWorkshops.API.Controllers
 
     [ApiController]
     [Route("api/carRepairWorkshops")]
-    //[Authorize(Roles = UserRoles.Admin)]
+    [Authorize]
 
     public class CarRepairWorkshopsController(IMediator mediator ) : ControllerBase
     {
         [HttpGet]
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<ActionResult<IEnumerable<CarRepairWorkshop>>> GetAllWorkshopsAsync
             ([FromQuery] GetAllWorkshopsQuery query)
         {
@@ -26,6 +31,7 @@ namespace CarRepairWorkshops.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<ActionResult> CreateWorkshop(CreateWorkshopCommand command)
         {
             await mediator.Send(command);
@@ -56,6 +62,19 @@ namespace CarRepairWorkshops.API.Controllers
             return NoContent();
         }
 
+        [HttpPost("assignMechanic")]
+        public async Task<IActionResult> AssignMechanic(AssignMechanicCommand command)
+        {
+            await mediator.Send(command);
+            return NoContent();
+        }
+
+        [HttpDelete("unassignMechanic")]
+        public async Task<IActionResult> UnassignMechanic(UnassignMechanicCommand command)
+        {
+            await mediator.Send(command);
+            return NoContent();
+        }
 
     }
 }

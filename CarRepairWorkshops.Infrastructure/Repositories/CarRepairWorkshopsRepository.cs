@@ -3,6 +3,7 @@ using CarRepairWorkshops.Domain.Repositories;
 using CarRepairWorkshops.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using CarRepairWorkshops.Application.Common;
+using Microsoft.Extensions.Azure;
 
 namespace CarRepairWorkshops.Infrastructure.Repositories
 {
@@ -61,6 +62,14 @@ namespace CarRepairWorkshops.Infrastructure.Repositories
             await dbContext.SaveChangesAsync();
         }
 
+        public async Task AddMechanic(int workshopId, User user)
+        {
+            var workshop = dbContext.CarRepairWorkshops.FirstOrDefault(w => w.Id == workshopId);
+            var list = workshop.Mechanics.ToList();
+            list.Add(user);
+            workshop.Mechanics = list;
+            await dbContext.SaveChangesAsync();
+        }
 
     }
 }

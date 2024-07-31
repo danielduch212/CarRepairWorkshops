@@ -6,4 +6,5 @@ public enum ResourceOperation
     Delete,
     Update,
     Read,
+    ReadCredential,
 }

@@ -2,6 +2,7 @@
 using CarRepairWorkshops.Application.Cars.Queries.GetAllForWorkshop;
 using CarRepairWorkshops.Domain.Entities;
 using CarRepairWorkshops.Domain.Exceptions;
+using CarRepairWorkshops.Domain.Interfaces;
 using CarRepairWorkshops.Domain.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -15,17 +16,18 @@ namespace CarRepairWorkshops.Application.Cars.Commands.CreateCar
 {
     internal class CreateCarCommandHandler(ILogger<GetAllForWorkshopQueryHandler> logger,
     ICarRepairWorkshopsRepository workshopsRepository, ICarsRepository carRepository,
-    IMapper mapper) : IRequestHandler<CreateCarCommand>
+    IMapper mapper, ICarRepairWorkshopsAuthorizationService authorizationService) : IRequestHandler<CreateCarCommand>
     {
-        public Task Handle(CreateCarCommand request, CancellationToken cancellationToken)
+        public async Task Handle(CreateCarCommand request, CancellationToken cancellationToken)
         {
             logger.LogInformation("Creating new car to given id workshop: {WorkshopId}", request.CarRepairWorkshopId);
-            var workshop = workshopsRepository.GetById(request.CarRepairWorkshopId);
+            var workshop = await workshopsRepository.GetById(request.CarRepairWorkshopId);
             if (workshop == null) throw new NotFoundException(nameof(workshop), request.CarRepairWorkshopId.ToString());
 
+            if (!authorizationService.Authorize(workshop, Domain.Constants.ResourceOperation.Update)) throw new ForbidException();
+
             var car = mapper.Map<Car>(request);
-            carRepository.CreateCar(car);
-            return Task.CompletedTask;
+            await carRepository.CreateCar(car);
         }
     }
 }

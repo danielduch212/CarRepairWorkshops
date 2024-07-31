@@ -33,7 +33,34 @@ public class CarRepairWorkshopsAuthorizationService(ILogger<CarRepairWorkshopsAu
             logger.LogInformation("Workshop owner - succesful authorization");
             return true;
         }
+        if (resourceOperation == ResourceOperation.Create && user.IsInRole(UserRoles.Admin))
+        {
+            logger.LogInformation("Admin user - create operation - succesful authorization");
 
+            return true;
+        }
+        if (resourceOperation == ResourceOperation.ReadCredential && workshop.OwnerId == user.Id || user.IsInRole(UserRoles.Admin))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool AuthorizeMechanic(CarRepairWorkshop workshop)
+    {
+        var user = userContext.GetCurrentUser();
+
+        var userToFind = workshop.Mechanics.FirstOrDefault(m => m.Id == user.Id);
+        if (userToFind == null) return false;
+        if (workshop.OwnerId == user.Id) return true;
+        return true;
+    }
+
+    public bool AuthorizeCarOwner(Car car)
+    {
+        var user = userContext.GetCurrentUser();
+        if (car.CarOwnerId.ToString() == user.Id) return true;
         return false;
     }
 }
