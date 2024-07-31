@@ -54,6 +54,6 @@ jobs:
     - name: Azure WebApp
       uses: Azure/webapps-deploy@v3.0.1
       with:
-        app-name: 'carRepairWorkshops-api-dev'
+        app-name: 'carRepairWorkshops-api-prod'
         publish-profile: ${{ secrets.PUBLISH_PROFILE_PROD }}
       
