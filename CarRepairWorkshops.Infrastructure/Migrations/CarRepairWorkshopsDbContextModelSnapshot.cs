@@ -4,7 +4,6 @@ using CarRepairWorkshops.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,11 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRepairWorkshops.Infrastructure.Migrations
 {
     [DbContext(typeof(CarRepairWorkshopsDbContext))]
-    [Migration("20240729182609_initialnew")]
-    partial class initialnew
+    partial class CarRepairWorkshopsDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,6 +37,9 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                     b.Property<string>("CarName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CarOwnerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("CarRegistrationNumber")
                         .IsRequired()
@@ -182,6 +182,9 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CurrentWorkshopId")
+                        .HasColumnType("int");
+
                     b.Property<DateOnly?>("DateOfBirth")
                         .HasColumnType("date");
 
@@ -229,6 +232,8 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CurrentWorkshopId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -446,6 +451,13 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CarRepairWorkshops.Domain.Entities.User", b =>
+                {
+                    b.HasOne("CarRepairWorkshops.Domain.Entities.CarRepairWorkshop", null)
+                        .WithMany("Mechanics")
+                        .HasForeignKey("CurrentWorkshopId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -504,6 +516,8 @@ namespace CarRepairWorkshops.Infrastructure.Migrations
 
             modelBuilder.Entity("CarRepairWorkshops.Domain.Entities.CarRepairWorkshop", b =>
                 {
+                    b.Navigation("Mechanics");
+
                     b.Navigation("RepairCars");
                 });
 
