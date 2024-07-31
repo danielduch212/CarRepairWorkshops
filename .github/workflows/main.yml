@@ -1,4 +1,4 @@
-name: carRepairWorkshops-api
+name: carRepairWorkshops-api-ci
 
 on:
   pull_request:
