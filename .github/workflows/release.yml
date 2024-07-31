@@ -37,7 +37,6 @@ jobs:
       uses: actions/download-artifact@v4.1.8
       with:
         name: api-artefact
-        path: ${{env.DOTNET_ROOT}}/api
     - name: Azure WebApp
       uses: Azure/webapps-deploy@v3.0.1
       with:
