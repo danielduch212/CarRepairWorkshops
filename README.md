@@ -38,7 +38,7 @@ I created 3 users:
 Owner and mechanic are in the same workshop. You can try to create another workshop - using Admin account. And if you want to try another endpoints - look in use cases if its probably possible for given user. 
 
 
-Logging and authorization: 
+**Logging and authorization:**
 
 Go to this site: [Swagger for Car Repair Workshops API](https://carrepairworkshops-api-prod-a8cfb0eddjbmbmc8.polandcentral-01.azurewebsites.net/swagger/index.html)
 
