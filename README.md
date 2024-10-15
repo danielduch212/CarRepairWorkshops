@@ -14,7 +14,8 @@ This api is created for Car repair workshops. So for many workshops which have t
 They are made using Aspnetcore.Identity Package. And this api authorize endpoints by userRole - generally speaking but there are custom polices either.
 
 ## Database
-![baza danych CarRepairWorkshops.pdf](https://github.com/user-attachments/files/17379577/baza.danych.CarRepairWorkshops.pdf)
+![DbCarRepairWorkshops (1)-1](https://github.com/user-attachments/assets/d54a9bc6-e408-4b86-baea-5bf199d5285e)
+
 
 There are entities created from Aspnetcore.Identity but there are mine entities maybe more interesting. So we have:
 - CarRepairWorkshops - represents workshop created in database using api. Single entity has its properties and it stores logo either. Logo is stored as filename of blob(Azure).
