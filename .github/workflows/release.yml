@@ -28,12 +28,12 @@ jobs:
           name: api-artefact
           path: ${{env.DOTNET_ROOT}}/api
 
-      
-  deploy_prod:
+  deploy_dev:
     environment: 
-      name: 'Prod'
-      url: ${{ steps.prod-to-web-app.outputs.webapp-url }}
+      name: 'Dev'
+      url: ${{ steps.deploy-to-web-app.outputs.webapp-url }}
     runs-on: ubuntu-latest
+    needs: build
     steps: 
     - name: Download a Build Artifact
       uses: actions/download-artifact@v4.1.8
@@ -41,8 +41,9 @@ jobs:
         name: api-artefact
     - name: Azure WebApp
       uses: Azure/webapps-deploy@v3.0.1
-      id: prod-to-web-app
+      id: deploy-to-web-app
       with:
         app-name: 'carRepairWorkshops-api-prod'
         publish-profile: ${{ secrets.PUBLISH_PROFILE_PROD }}
       
+ 
