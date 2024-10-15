@@ -25,7 +25,8 @@ There are entities created from Aspnetcore.Identity but there are mine entities 
 
 ## Use cases   
 
-![Use cases diagram](https://github.com/user-attachments/assets/19313f5a-3061-49e5-82ba-8c168eb203b8)
+![Diagram](https://github.com/user-attachments/assets/b01445bb-5496-4863-9b96-a70c26bba33d)
+
 
 
 ## How to run/test the project:
