@@ -22,6 +22,7 @@ namespace CarRepairWorkshops.API.Controllers
 
         [HttpPost("userRole")]
         [Authorize(Roles = UserRoles.Admin)]
+
         public async Task<IActionResult> AssignUserRole(AssignUserRoleCommand command)
         {
             await mediator.Send(command);

@@ -4,8 +4,6 @@ using CarRepairWorkshops.Application.CarRepairWorkshops.Commands.DeleteWorkshop;
 using CarRepairWorkshops.Application.CarRepairWorkshops.Commands.UnassignMechanic;
 using CarRepairWorkshops.Application.CarRepairWorkshops.Commands.UploadWorkshopLogo;
 using CarRepairWorkshops.Application.CarRepairWorkshops.Queries.GetAll;
-using CarRepairWorkshops.Application.Users.Commands.AssignUserRole;
-using CarRepairWorkshops.Application.Users.Commands.UnassignUserRole;
 using CarRepairWorkshops.Domain.Constants;
 using CarRepairWorkshops.Domain.Entities;
 using MediatR;
@@ -31,7 +29,7 @@ namespace CarRepairWorkshops.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = UserRoles.Admin)]
+        [Authorize(Roles = UserRoles.WorkshopOwner)]
         public async Task<ActionResult> CreateWorkshop(CreateWorkshopCommand command)
         {
             await mediator.Send(command);

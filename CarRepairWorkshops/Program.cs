@@ -20,9 +20,6 @@ try
     builder.Services.AddApplication();
 
 
-
-
-
     var app = builder.Build();
 
 
@@ -39,11 +36,11 @@ try
     app.UseSerilogRequestLogging();
 
     // Configure the HTTP request pipeline.
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
+    
+    
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    
 
     app.UseHttpsRedirection();
 

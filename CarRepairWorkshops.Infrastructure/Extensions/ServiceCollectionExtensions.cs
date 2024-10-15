@@ -22,9 +22,9 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<CarRepairWorkshopsDbContext>(options =>
             options.UseSqlServer(connectionString));
 
-        services.AddIdentityApiEndpoints<User>()
-            .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<CarRepairWorkshopsDbContext>();
+            services.AddIdentityApiEndpoints<User>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<CarRepairWorkshopsDbContext>();
 
         services.AddScoped<ICarRepairWorkshopsSeeder, CarRepairWorkshopsSeeder>();
         services.AddScoped<ICarRepairWorkshopsRepository, CarRepairWorkshopsRepository>();

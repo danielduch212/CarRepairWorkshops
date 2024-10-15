@@ -13,10 +13,10 @@ internal class CarRepairWorkshopsSeeder(CarRepairWorkshopsDbContext dbContext) :
     public async Task Seed()
     {
 
-        //if (dbContext.Database.GetPendingMigrations().Any())
-        //{
-        //    await dbContext.Database.MigrateAsync();
-        //}
+        if (dbContext.Database.GetPendingMigrations().Any())
+        {
+            await dbContext.Database.MigrateAsync();
+        }
 
         if(await dbContext.Database.CanConnectAsync())
         {
@@ -350,11 +350,11 @@ internal class CarRepairWorkshopsSeeder(CarRepairWorkshopsDbContext dbContext) :
                 },
                 new (UserRoles.Admin)
                 {
-                    NormalizedName = UserRoles.WorkshopOwner.ToUpper(),
+                    NormalizedName = UserRoles.Admin.ToUpper(),
                 },
                 new (UserRoles.WorkshopOwner)
                 {
-                    NormalizedName = UserRoles.Admin.ToUpper(),
+                    NormalizedName = UserRoles.WorkshopOwner.ToUpper(),
                 },
             ];
         return roles;
