@@ -1,8 +1,8 @@
 # CarRepairWorkshops
 
-Working here: https://carrepairworkshops-api-prod-a8cfb0eddjbmbmc8.polandcentral-01.azurewebsites.net/swagger
+Working api here: https://carrepairworkshops-api-prod-a8cfb0eddjbmbmc8.polandcentral-01.azurewebsites.net/swagger
 
-##Introduction
+## Introduction
 This project is made using Clean Code pattern and CQRS(mediator). Projects works with Azure services - App Service, SQL Database, BlobStorage and Insights.
 
 This api is created for Car repair workshops. So for many workshops which have their own owners, mechanics and repairs. So we have 3 actors(roles):
@@ -14,7 +14,7 @@ This api is created for Car repair workshops. So for many workshops which have t
 They are made using Aspnetcore.Identity Package. And this api authorize endpoints by userRole - generally speaking but there are custom polices either.
 
 ## Database
-[baza danych CarRepairWorkshops.pdf](https://github.com/user-attachments/files/17379577/baza.danych.CarRepairWorkshops.pdf)
+![baza danych CarRepairWorkshops.pdf](https://github.com/user-attachments/files/17379577/baza.danych.CarRepairWorkshops.pdf)
 
 There are entities created from Aspnetcore.Identity but there are mine entities maybe more interesting. So we have:
 - CarRepairWorkshops - represents workshop created in database using api. Single entity has its properties and it stores logo either. Logo is stored as filename of blob(Azure).
